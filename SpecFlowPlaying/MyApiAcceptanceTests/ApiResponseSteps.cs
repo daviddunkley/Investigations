@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using MyApiAcceptanceTests.Models;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -11,18 +12,18 @@ using TechTalk.SpecFlow;
 
 namespace MyApiAcceptanceTests
 {
-    public class ApiResponseSteps
+    public abstract class ApiResponseSteps
     {
         protected HttpClient HttpClient;
         protected Uri RequestUri;
-        protected UserRequest UserRequest;
         protected HttpResponseMessage HttpResponseMessage;
+
+        protected abstract Object RequestObject { get; }
 
         #region Given Steps
         [Given(@"I have a successful request")]
         public void GivenIHaveASuccessfulRequest()
         {
-            UserRequest = new Fixture().Create<UserRequest>();
             RequestUri = new Uri("http://httpstat.us/200");
         }
 
@@ -77,7 +78,12 @@ namespace MyApiAcceptanceTests
         {
             HttpClient = new HttpClient();
 
-            HttpResponseMessage = HttpClient.PostAsync(RequestUri, null).Result;
+            var requestBody = JsonConvert.SerializeObject(RequestObject);
+
+            HttpResponseMessage = HttpClient.PostAsync(
+                RequestUri,
+                new StringContent(requestBody),
+                new JsonMediaTypeFormatter()).Result;
         }
 
         #endregion When Steps
