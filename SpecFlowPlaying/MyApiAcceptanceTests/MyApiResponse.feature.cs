@@ -308,19 +308,40 @@ this.ScenarioSetup(scenarioInfo);
         }
 
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Request which Creates an Item")]
-        public virtual void RequestWhichCreatesAnItem()
+        [NUnit.Framework.DescriptionAttribute("Request where the User Title is not valid")]
+        public virtual void RequestWhereTheUserTitleIsNotValid()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request which Creates an Item", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request where the User Title is not valid", ((string[])(null)));
 #line 86
 this.ScenarioSetup(scenarioInfo);
 #line 87
  testRunner.Given("I have a successful request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 88
- testRunner.And("It also creates an item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("also an Invalid User Title of Professor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 89
  testRunner.When("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 90
+ testRunner.Then("the response has a status code of 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 91
+ testRunner.And("it also has a response error message of Invalid Title passed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Request which Creates an Item")]
+        public virtual void RequestWhichCreatesAnItem()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request which Creates an Item", ((string[])(null)));
+#line 93
+this.ScenarioSetup(scenarioInfo);
+#line 94
+ testRunner.Given("I have a successful request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 95
+ testRunner.And("It also creates an item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 96
+ testRunner.When("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 97
  testRunner.Then("the response has a status code of 201", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -331,15 +352,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void RequestWhichIsPerformedOffline()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request which is Performed Offline", ((string[])(null)));
-#line 92
+#line 99
 this.ScenarioSetup(scenarioInfo);
-#line 93
+#line 100
  testRunner.Given("I have a successful request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 94
+#line 101
  testRunner.And("It is also performed offline", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 95
+#line 102
  testRunner.When("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 96
+#line 103
  testRunner.Then("the response has a status code of 202", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -350,15 +371,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void RequestWhichReturnsNoContentWhenItIsSuccessful()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request which Returns No Content when it is successful", ((string[])(null)));
-#line 98
+#line 105
 this.ScenarioSetup(scenarioInfo);
-#line 99
+#line 106
  testRunner.Given("I have a successful request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 100
+#line 107
  testRunner.And("It also returns no content", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 101
+#line 108
  testRunner.When("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 102
+#line 109
  testRunner.Then("the response has a status code of 204", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

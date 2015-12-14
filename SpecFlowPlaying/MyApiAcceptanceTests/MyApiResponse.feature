@@ -83,6 +83,13 @@ Scenario: Request which is Successful
 	When I call the Api
 	Then the response has a status code of 200
 
+Scenario: Request where the User Title is not valid
+	Given I have a successful request
+	And also an Invalid User Title of Professor
+	When I call the Api
+	Then the response has a status code of 400
+	And it also has a response error message of Invalid Title passed
+
 Scenario: Request which Creates an Item
 	Given I have a successful request
 	And It also creates an item
