@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
+using System.Net.Http.Headers;
+using System.Text;
 using MyApiAcceptanceTests.Models;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -77,13 +79,16 @@ namespace MyApiAcceptanceTests
         public void WhenICallTheApi()
         {
             HttpClient = new HttpClient();
+            HttpClient.DefaultRequestHeaders
+                  .Accept
+                  .Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             var requestBody = JsonConvert.SerializeObject(RequestObject);
 
             HttpResponseMessage = HttpClient.PostAsync(
                 RequestUri,
-                new StringContent(requestBody),
-                new JsonMediaTypeFormatter()).Result;
+                new StringContent(requestBody, Encoding.UTF8, "application/json")
+                ).Result;
         }
 
         #endregion When Steps

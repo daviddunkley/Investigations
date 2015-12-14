@@ -4,7 +4,7 @@
 //      SpecFlow Version:1.9.0.77
 //      SpecFlow Generator Version:1.9.0.0
 //      Runtime Version:4.0.30319.42000
-// 
+//
 //      Changes to this file may cause incorrect behavior and will be lost if
 //      the code is regenerated.
 //  </auto-generated>
@@ -14,20 +14,20 @@
 namespace MyApiAcceptanceTests
 {
     using TechTalk.SpecFlow;
-    
-    
+
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("MyApiResponse")]
     public partial class MyApiResponseFeature
     {
-        
+
         private static TechTalk.SpecFlow.ITestRunner testRunner;
-        
+
 #line 1 "MyApiResponse.feature"
 #line hidden
-        
+
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
@@ -36,35 +36,35 @@ namespace MyApiAcceptanceTests
                     "est\r\nI want to be told the outcome of the request", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
-        
+
         [NUnit.Framework.TestFixtureTearDownAttribute()]
         public virtual void FeatureTearDown()
         {
             testRunner.OnFeatureEnd();
             testRunner = null;
         }
-        
+
         [NUnit.Framework.SetUpAttribute()]
         public virtual void TestInitialize()
         {
         }
-        
+
         [NUnit.Framework.TearDownAttribute()]
         public virtual void ScenarioTearDown()
         {
             testRunner.OnScenarioEnd();
         }
-        
+
         public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioStart(scenarioInfo);
         }
-        
+
         public virtual void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request made without ClientId")]
         [NUnit.Framework.CategoryAttribute("mytag")]
@@ -87,7 +87,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request made with ClientId that does not exist")]
         public virtual void RequestMadeWithClientIdThatDoesNotExist()
@@ -108,7 +108,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request made without ProductId")]
         public virtual void RequestMadeWithoutProductId()
@@ -129,7 +129,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request made with ProductId that does not exist")]
         public virtual void RequestMadeWithProductIdThatDoesNotExist()
@@ -150,7 +150,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request made without FormId")]
         public virtual void RequestMadeWithoutFormId()
@@ -171,7 +171,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request made with FormId that does not exist")]
         public virtual void RequestMadeWithFormIdThatDoesNotExist()
@@ -192,7 +192,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request which is badly formed")]
         public virtual void RequestWhichIsBadlyFormed()
@@ -211,7 +211,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Requests which already exists")]
         public virtual void RequestsWhichAlreadyExists()
@@ -230,7 +230,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Requests where an internal error occurs")]
         public virtual void RequestsWhereAnInternalErrorOccurs()
@@ -247,7 +247,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request where the User Email is a string")]
         public virtual void RequestWhereTheUserEmailIsAString()
@@ -268,7 +268,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request where the User Email has a domain with no suffix")]
         public virtual void RequestWhereTheUserEmailHasADomainWithNoSuffix()
@@ -289,7 +289,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request which is Successful")]
         public virtual void RequestWhichIsSuccessful()
@@ -306,7 +306,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request which Creates an Item")]
         public virtual void RequestWhichCreatesAnItem()
@@ -325,7 +325,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request which is Performed Offline")]
         public virtual void RequestWhichIsPerformedOffline()
@@ -344,7 +344,7 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request which Returns No Content when it is successful")]
         public virtual void RequestWhichReturnsNoContentWhenItIsSuccessful()
