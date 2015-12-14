@@ -31,53 +31,53 @@ namespace MyApiAcceptanceTests
         public void GivenItAlsoIsMissingAClientId()
         {
             ((UserRequest)RequestObject).ClientId = null;
-            RequestUri = new Uri("http://www.mocky.io/v2/566ee5aa100000d629718e30");
+            RequestUri = MockyApiUris.RequiredClientIdNotGiven;
         }
 
         [Given(@"it also is missing a ProductId")]
         public void GivenItAlsoIsMissingAProductId()
         {
             ((UserRequest)RequestObject).ProductId = null;
-            RequestUri = new Uri("http://www.mocky.io/v2/566ee2551000002729718e2d");
+            RequestUri = MockyApiUris.RequiredProductIdNotGiven;
         }
 
         [Given(@"it also is missing a FormId")]
         public void GivenItAlsoIsMissingAFormId()
         {
             ((UserRequest)RequestObject).FormId = null;
-            RequestUri = new Uri("http://www.mocky.io/v2/566ee2a71000002729718e2e");
+            RequestUri = MockyApiUris.RequiredFormIdNotGiven;
         }
 
         [Given(@"it also has a ClientId that does not exist")]
         public void GivenItAlsoHasAClientIdThatDoesNotExist()
         {
-            RequestUri = new Uri("http://www.mocky.io/v2/566ed77e100000b526718e1f");
+            RequestUri = MockyApiUris.InvalidClientIdPassed;
         }
 
         [Given(@"it also has a ProductId that does not exist")]
         public void GivenItAlsoHasAProductIdThatDoesNotExist()
         {
-            RequestUri = new Uri("http://www.mocky.io/v2/566ee5da100000d629718e32");
+            RequestUri = MockyApiUris.InvalidProductIdPassed;
         }
 
         [Given(@"it also has a FormId that does not exist")]
         public void GivenItAlsoHasAFormIdThatDoesNotExist()
         {
-            RequestUri = new Uri("http://www.mocky.io/v2/566ed898100000f526718e21");
+            RequestUri = MockyApiUris.InvalidFormIdPassed;
         }
 
         [Given(@"it also has an Email Address of (.+)")]
         public void GivenItAlsoHasAnEmailAddressOfNotValidEmail(string emailAddress)
         {
             ((UserRequest) RequestObject).EmailAddress = emailAddress;
-            RequestUri = new Uri("http://www.mocky.io/v2/566eeb41100000132a718e3a");
+            RequestUri = MockyApiUris.InvalidEmailAddressPassed;
         }
 
         [Given(@"also an Invalid User Title of (.+)")]
         public void GivenAlsoAnInvalidUserTitleOf(string title)
         {
             ((UserRequest)RequestObject).UserDetail.Title = title;
-            RequestUri = new Uri("http://www.mocky.io/v2/566ef4031000009b2c718e3f");
+            RequestUri = MockyApiUris.InvalidTitlePassword;
         }
 
         #endregion Given Steps

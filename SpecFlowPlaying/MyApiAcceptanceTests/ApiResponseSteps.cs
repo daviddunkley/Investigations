@@ -16,9 +16,11 @@ namespace MyApiAcceptanceTests
 {
     public abstract class ApiResponseSteps
     {
-        protected HttpClient HttpClient;
+        private readonly Uri _httpStatUri = new Uri("http://httpstat.us/");
+
+        private HttpClient _httpClient;
         protected Uri RequestUri;
-        protected HttpResponseMessage HttpResponseMessage;
+        private HttpResponseMessage _httpResponseMessage;
 
         protected abstract Object RequestObject { get;}
 
@@ -26,49 +28,49 @@ namespace MyApiAcceptanceTests
         [Given(@"I have a successful request")]
         public void GivenIHaveASuccessfulRequest()
         {
-            RequestUri = new Uri("http://httpstat.us/200");
+            RequestUri = new Uri(_httpStatUri, "200");
         }
 
         [Given(@"It also creates an item")]
         public void GivenItAlsoCreatesAnItem()
         {
-            RequestUri = new Uri("http://httpstat.us/201");
+            RequestUri = new Uri(_httpStatUri, "201");
         }
 
         [Given(@"It is also performed offline")]
         public void GivenItIsAlsoPerformedOffline()
         {
-            RequestUri = new Uri("http://httpstat.us/202");
+            RequestUri = new Uri(_httpStatUri, "202");
         }
 
         [Given(@"It also returns no content")]
         public void GivenItAlsoReturnsNoContent()
         {
-            RequestUri = new Uri("http://httpstat.us/204");
+            RequestUri = new Uri(_httpStatUri, "204");
         }
 
         [Given(@"I have a request that should not be sent again")]
         public void GivenIHaveARequestThatShouldNotBeSentAgain()
         {
-            RequestUri = new Uri("http://httpstat.us/400");
+            RequestUri = new Uri(_httpStatUri, "400");
         }
 
         [Given(@"It is also badly formed")]
         public void GivenItIsAlsoBadlyFormed()
         {
-            RequestUri = new Uri("http://httpstat.us/400");
+            RequestUri = new Uri(_httpStatUri, "400");
         }
 
         [Given(@"It also has a conflict")]
         public void GivenItAlsoHasAConflict()
         {
-            RequestUri = new Uri("http://httpstat.us/409");
+            RequestUri = new Uri(_httpStatUri, "409");
         }
 
         [Given(@"I have a request that fails but should be sent again")]
         public void GivenIHaveARequestThatFailsButShouldBeSentAgain()
         {
-            RequestUri = new Uri("http://httpstat.us/500");
+            RequestUri = new Uri(_httpStatUri, "500");
         }
 
         #endregion Given Steps
@@ -78,14 +80,14 @@ namespace MyApiAcceptanceTests
         [When(@"I call the Api")]
         public void WhenICallTheApi()
         {
-            HttpClient = new HttpClient();
-            HttpClient.DefaultRequestHeaders
+            _httpClient = new HttpClient();
+            _httpClient.DefaultRequestHeaders
                   .Accept
                   .Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             var requestBody = JsonConvert.SerializeObject(RequestObject);
 
-            HttpResponseMessage = HttpClient.PostAsync(
+            _httpResponseMessage = _httpClient.PostAsync(
                 RequestUri,
                 new StringContent(requestBody, Encoding.UTF8, "application/json")
                 ).Result;
@@ -98,7 +100,7 @@ namespace MyApiAcceptanceTests
         public void ThenTheResponseHasAStatusCodeOf(int statusCode)
         {
             var expected = (HttpStatusCode)statusCode;
-            var actual = HttpResponseMessage.StatusCode;
+            var actual = _httpResponseMessage.StatusCode;
 
             if (expected == actual)
             {
@@ -112,7 +114,7 @@ namespace MyApiAcceptanceTests
         public void ThenItAlsoHasAResponseErrorMessageOf(string expectedMessage)
         {
             var actual = JsonConvert.DeserializeObject<ErrorMessage>(
-                HttpResponseMessage.Content.ReadAsStringAsync()
+                _httpResponseMessage.Content.ReadAsStringAsync()
                     .Result);
 
             if (actual.Message == expectedMessage)
