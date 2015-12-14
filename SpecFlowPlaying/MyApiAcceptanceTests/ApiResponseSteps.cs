@@ -18,7 +18,7 @@ namespace MyApiAcceptanceTests
         protected Uri RequestUri;
         protected HttpResponseMessage HttpResponseMessage;
 
-        protected abstract Object RequestObject { get; }
+        protected abstract Object RequestObject { get;}
 
         #region Given Steps
         [Given(@"I have a successful request")]

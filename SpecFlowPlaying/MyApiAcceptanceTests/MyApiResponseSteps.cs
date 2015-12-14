@@ -7,11 +7,18 @@ namespace MyApiAcceptanceTests
     [Binding]
     public class MyApiResponseSteps : ApiResponseSteps
     {
+        private IFixture _fixture;
         protected override Object RequestObject { get; }
 
         public MyApiResponseSteps()
         {
-            RequestObject = new Fixture().Create<UserRequest>();
+            var fixture = new Fixture();
+            fixture.Customize<UserRequest>(
+                c => c
+                    .With(u => u.EmailAddress, $"{fixture.Create<string>()}@test.com")
+                );
+
+            RequestObject = fixture.Create<UserRequest>();
         }
 
         #region Given Steps
@@ -54,6 +61,15 @@ namespace MyApiAcceptanceTests
         {
             RequestUri = new Uri("http://www.mocky.io/v2/566ed898100000f526718e21");
         }
+
+        [Given(@"it also has an Email Address of (.+)")]
+        public void GivenItAlsoHasAnEmailAddressOfNotValidEmail(string emailAddress)
+        {
+            ((UserRequest) RequestObject).EmailAddress = emailAddress;
+            RequestUri = new Uri("http://www.mocky.io/v2/566eeb41100000132a718e3a");
+        }
+
+
 
         #endregion Given Steps
     }
