@@ -7,9 +7,6 @@
 @mytag
 Scenario: Request which is Successful
 	Given I have a successful request
-	And a user with the following:
-	| name | email              |
-	| rob  | rob@mission202.com |
 	When I call the Api
 	Then the response has a status code of 200
 
