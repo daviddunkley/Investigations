@@ -83,6 +83,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ApiResponse.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApiResponse.feature</DependentUpon>
+    </Compile>
     <Compile Include="LocalAddin.cs" />
     <Compile Include="MockyApiUris.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
@@ -99,6 +104,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ApiResponse.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ApiResponse.feature.cs</LastGenOutput>
+    </None>
     <None Include="MyApiResponse.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>MyApiResponse.feature.cs</LastGenOutput>

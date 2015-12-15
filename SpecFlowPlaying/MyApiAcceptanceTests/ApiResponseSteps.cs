@@ -16,59 +16,60 @@ namespace MyApiAcceptanceTests
 {
     public abstract class ApiResponseSteps
     {
-        private readonly Uri _httpStatUri = new Uri("http://httpstat.us/");
+        protected readonly Uri _httpStatUri = new Uri("http://httpstat.us/");
+        protected readonly Uri _http200Uri = new Uri("http://httpstat.us/200");
 
         private HttpClient _httpClient;
         protected Uri RequestUri;
         private HttpResponseMessage _httpResponseMessage;
 
-        protected abstract Object RequestObject { get;}
+        protected abstract Object RequestObject { get; set; }
 
         #region Given Steps
-        [Given(@"I have a successful request")]
-        public void GivenIHaveASuccessfulRequest()
+        [Given(@"a successful request")]
+        public void GivenASuccessfulRequest()
         {
             RequestUri = new Uri(_httpStatUri, "200");
         }
 
-        [Given(@"It also creates an item")]
-        public void GivenItAlsoCreatesAnItem()
+        [Given(@"it creates an item")]
+        public void GivenItCreatesAnItem()
         {
             RequestUri = new Uri(_httpStatUri, "201");
         }
 
-        [Given(@"It is also performed offline")]
-        public void GivenItIsAlsoPerformedOffline()
+        [Given(@"it is performed offline")]
+        public void GivenItIsPerformedOffline()
         {
             RequestUri = new Uri(_httpStatUri, "202");
         }
 
-        [Given(@"It also returns no content")]
-        public void GivenItAlsoReturnsNoContent()
+        [Given(@"it returns no content")]
+        public void GivenItReturnsNoContent()
         {
             RequestUri = new Uri(_httpStatUri, "204");
         }
 
-        [Given(@"I have a request that should not be sent again")]
-        public void GivenIHaveARequestThatShouldNotBeSentAgain()
+        [Given(@"a request that should not be sent again")]
+        public void GivenARequestThatShouldNotBeSentAgain()
         {
             RequestUri = new Uri(_httpStatUri, "400");
         }
 
-        [Given(@"It is also badly formed")]
-        public void GivenItIsAlsoBadlyFormed()
+        [Given(@"it is badly formed")]
+        public void GivenItIsBadlyFormed()
         {
             RequestUri = new Uri(_httpStatUri, "400");
         }
 
-        [Given(@"It also has a conflict")]
-        public void GivenItAlsoHasAConflict()
+        [Given(@"it has a conflict")]
+        public void GivenItHasAConflict()
         {
             RequestUri = new Uri(_httpStatUri, "409");
         }
 
-        [Given(@"I have a request that fails but should be sent again")]
-        public void GivenIHaveARequestThatFailsButShouldBeSentAgain()
+        [Given(@"a request that fails but should be sent again")]
+        public void GivenARequestThatFailsButShouldBeSentAgain()
         {
             RequestUri = new Uri(_httpStatUri, "500");
         }
@@ -85,7 +86,12 @@ namespace MyApiAcceptanceTests
                   .Accept
                   .Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var requestBody = JsonConvert.SerializeObject(RequestObject);
+            var requestBody = JsonConvert.SerializeObject(
+                RequestObject,
+                new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
 
             _httpResponseMessage = _httpClient.PostAsync(
                 RequestUri,
@@ -110,8 +116,8 @@ namespace MyApiAcceptanceTests
                 Assert.Fail($"Received unexpected response of {(int)actual} ({actual}).");
         }
 
-        [Then(@"it also has a response error message of (.+)")]
-        public void ThenItAlsoHasAResponseErrorMessageOf(string expectedMessage)
+        [Then(@"it has a response error message of (.+)")]
+        public void ThenItHasAResponseErrorMessageOf(string expectedMessage)
         {
             var actual = JsonConvert.DeserializeObject<ErrorMessage>(
                 _httpResponseMessage.Content.ReadAsStringAsync()
