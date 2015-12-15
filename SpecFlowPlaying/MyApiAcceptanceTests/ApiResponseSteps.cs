@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Text;
 using MyApiAcceptanceTests.Models;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using Ploeh.AutoFixture;
 using TechTalk.SpecFlow;
 
 namespace MyApiAcceptanceTests
@@ -29,49 +26,49 @@ namespace MyApiAcceptanceTests
         [Given(@"a successful request")]
         public void GivenASuccessfulRequest()
         {
-            RequestUri = new Uri(_httpStatUri, "200");
+            RequestUri = HttpResponseUris.Http200Ok;
         }
 
         [Given(@"it creates an item")]
         public void GivenItCreatesAnItem()
         {
-            RequestUri = new Uri(_httpStatUri, "201");
+            RequestUri = HttpResponseUris.Http201Created;
         }
 
         [Given(@"it is performed offline")]
         public void GivenItIsPerformedOffline()
         {
-            RequestUri = new Uri(_httpStatUri, "202");
+            RequestUri = HttpResponseUris.Http202Accepted;
         }
 
         [Given(@"it returns no content")]
         public void GivenItReturnsNoContent()
         {
-            RequestUri = new Uri(_httpStatUri, "204");
+            RequestUri = HttpResponseUris.Http204NoContent;
         }
 
         [Given(@"a request that should not be sent again")]
         public void GivenARequestThatShouldNotBeSentAgain()
         {
-            RequestUri = new Uri(_httpStatUri, "400");
+            RequestUri = HttpResponseUris.Http400BadRequest;
         }
 
         [Given(@"it is badly formed")]
         public void GivenItIsBadlyFormed()
         {
-            RequestUri = new Uri(_httpStatUri, "400");
+            RequestUri = HttpResponseUris.Http400BadRequest;
         }
 
         [Given(@"it has a conflict")]
         public void GivenItHasAConflict()
         {
-            RequestUri = new Uri(_httpStatUri, "409");
+            RequestUri = HttpResponseUris.Http409Conflict;
         }
 
         [Given(@"a request that fails but should be sent again")]
         public void GivenARequestThatFailsButShouldBeSentAgain()
         {
-            RequestUri = new Uri(_httpStatUri, "500");
+            RequestUri = HttpResponseUris.Http500SystemError;
         }
 
         #endregion Given Steps
