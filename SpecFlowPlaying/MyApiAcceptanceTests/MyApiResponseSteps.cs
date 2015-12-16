@@ -1,11 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Text.RegularExpressions;
-using MyApiAcceptanceTests.Models;
-using Newtonsoft.Json;
+﻿using MyApiAcceptanceTests.Models;
 using Ploeh.AutoFixture;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -16,9 +9,6 @@ namespace MyApiAcceptanceTests
     public class MyApiResponseSteps : ApiResponseSteps<UserRequest>
     {
         private readonly Fixture _fixture;
-        private HttpClient _httpClient;
-        private HttpResponseMessage _httpResponseMessage;
-        private Uri _requestUri;
 
         public MyApiResponseSteps()
         {
