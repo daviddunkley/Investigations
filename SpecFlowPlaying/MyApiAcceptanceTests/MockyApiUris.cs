@@ -4,6 +4,7 @@ namespace MyApiAcceptanceTests
 {
     public static class MockyApiUris
     {
+        public static readonly Uri RequiredEmailAddressNotGiven = new Uri("http://www.mocky.io/v2/56718781400000f725d62b3f");
         public static readonly Uri RequiredClientIdNotGiven = new Uri("http://www.mocky.io/v2/566ee5aa100000d629718e30");
         public static readonly Uri RequiredProductIdNotGiven = new Uri("http://www.mocky.io/v2/566ee2551000002729718e2d");
         public static readonly Uri RequiredFormIdNotGiven = new Uri("http://www.mocky.io/v2/566ee2a71000002729718e2e");

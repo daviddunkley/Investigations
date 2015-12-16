@@ -1,133 +1,200 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Text.RegularExpressions;
+using MyApiAcceptanceTests.Models;
+using Newtonsoft.Json;
 using Ploeh.AutoFixture;
 using TechTalk.SpecFlow;
 
 namespace MyApiAcceptanceTests
 {
     [Binding]
-    public class MyApiResponseSteps : ApiResponseSteps
+    public class MyApiResponseSteps: ApiResponseSteps<UserRequest>
     {
         private readonly Fixture _fixture;
-        protected override Object RequestObject { get; set; }
-        private string[] _titles { get; }
+        private HttpClient _httpClient;
+        private HttpResponseMessage _httpResponseMessage;
+        private Uri _requestUri;
 
         public MyApiResponseSteps()
         {
             _fixture = new Fixture();
 
-            _titles = new string[]
+            RequestObject = new UserRequest
             {
-                "Mr",
-                "Mrs",
-                "Ms",
-                "Miss",
+                Publication = new Publication(),
+                UserDetail = new UserDetail()
             };
         }
-        #region Given Steps
 
-        [Given(@"a standard request")]
-        public void GivenAStandardRequest()
+        private bool TryExtractEmailFieldFromTable(Table table, string fieldName, out string fieldValue, bool autoGenerate = false)
         {
-            _fixture.Customize<UserRequest>(
-                c => c
-                    .With(u => u.EmailAddress, $"{_fixture.Create<string>()}@test.com")
-                );
+            fieldValue = null;
+            if (table.Rows.Any(r => r["Field"] == fieldName))
+            {
+                fieldValue = table.Rows.First(r => r["Field"] == fieldName)["Value"];
 
-            UserRequest userRequest = _fixture.Create<UserRequest>();
+                if (autoGenerate)
+                {
+                    fieldValue = (fieldValue == "{unique}")
+                        ? $"{_fixture.Create<string>()}@{_fixture.Create<string>()}.com"
+                        : fieldValue;
+                }
+                return true;
+            }
 
-            RequestObject = userRequest;
-
-            RequestUri = new Uri(_httpStatUri, "200");
+            return false;
         }
 
-
-        [Given(@"a User with a title of (.*)")]
-        public void GivenAUserWithATitle(string title)
+        private bool TryExtractFieldFromTable(Table table, string fieldName, out string fieldValue, bool autoGenerate = false)
         {
-            ((UserRequest)RequestObject).UserDetail.Title = title;
-
-            if (!_titles.Contains(title))
+            fieldValue = null;
+            if (table.Rows.Any(r => r["Field"] == fieldName))
             {
-                RequestUri = MockyApiUris.InvalidTitlePassed;
+                fieldValue = table.Rows.First(r => r["Field"] == fieldName)["Value"];
+
+                if (autoGenerate)
+                {
+                    fieldValue = (fieldValue == "{unique}")
+                        ? $"{_fixture.Create<string>()}"
+                        : fieldValue;
+                }
+                return true;
+            }
+
+            return false;
+        }
+
+        #region Given Steps
+        [Given(@"a User Request of:")]
+        public void GivenAUserRequestOf(Table table)
+        {
+            string fieldValue;
+
+            if (TryExtractEmailFieldFromTable(table, "EmailAddress", out fieldValue, true))
+            {
+                RequestObject.EmailAddress = fieldValue;
+            }
+
+            if (TryExtractFieldFromTable(table, "ClientId", out fieldValue))
+            {
+                RequestObject.ClientId = fieldValue;
+            }
+
+            if (TryExtractFieldFromTable(table, "ProductId", out fieldValue))
+            {
+                Guid guid;
+                if (Guid.TryParse(fieldValue, out guid))
+                {
+                    RequestObject.ProductId = guid;
+                }
+            }
+
+            if (TryExtractFieldFromTable(table, "FormId", out fieldValue))
+            {
+                RequestObject.FormId = fieldValue;
             }
         }
 
-        [Given(@"a User with a first name of (.*)")]
-        public void GivenAUserWithAFirstName(string firstName)
+        [Given(@"a Publication of:")]
+        public void GivenAPublicationOf(Table table)
         {
-            ((UserRequest)RequestObject).UserDetail.FirstName = firstName;
+            string fieldValue;
+
+            if (TryExtractFieldFromTable(table, "AdditionalParameters", out fieldValue))
+            {
+                RequestObject.Publication.AdditionalParameters = fieldValue;
+            }
+
+            if (TryExtractFieldFromTable(table, "PublicationId", out fieldValue))
+            {
+                int id;
+                if (int.TryParse(fieldValue, out id))
+                {
+                    RequestObject.Publication.PublicationId = id;
+                }
+            }
+
+            if (TryExtractFieldFromTable(table, "StartDate", out fieldValue))
+            {
+                DateTime dt;
+                if (DateTime.TryParse(fieldValue, out dt))
+                {
+                    RequestObject.Publication.StartDate = dt;
+                }
+            }
+
+            if (TryExtractFieldFromTable(table, "SendEmail", out fieldValue))
+            {
+                bool yesNo;
+                if (bool.TryParse(fieldValue, out yesNo))
+                {
+                    RequestObject.Publication.SendEmail = yesNo;
+                }
+            }
         }
 
-        [Given(@"a User with a last name of (.*)")]
-        public void GivenAUserWithALastName(string lastName)
+        [Given(@"a UserDetails of:")]
+        public void GivenAUserDetailsOf(Table table)
         {
-            ((UserRequest) RequestObject).UserDetail.LastName = lastName;
-        }
+            string fieldValue;
 
-        [Given(@"a User with a company of (.*)")]
-        public void GivenAUserWithACompanyName(string companyName)
-        {
-            ((UserRequest)RequestObject).UserDetail.Company = companyName;
-        }
+            if (TryExtractFieldFromTable(table, "Title", out fieldValue, true))
+            {
+                RequestObject.UserDetail.Title = fieldValue;
+            }
 
-        [Given(@"a User with a name of (.*) (.*) (.*)")]
-        public void GivenAUserWithAName(string title, string firstName, string lastName)
-        {
-            var userRequest = ((UserRequest) RequestObject);
-            userRequest.UserDetail.Title = title;
-            userRequest.UserDetail.FirstName = firstName;
-            userRequest.UserDetail.LastName = lastName;
+            if (TryExtractFieldFromTable(table, "FirstName", out fieldValue, true))
+            {
+                RequestObject.UserDetail.FirstName = fieldValue;
+            }
 
-            RequestObject = userRequest;
-        }
+            if (TryExtractFieldFromTable(table, "LastName", out fieldValue, true))
+            {
+                RequestObject.UserDetail.LastName = fieldValue;
+            }
 
-        [Given(@"it is missing a ClientId")]
-        public void GivenItIsMissingAClientId()
-        {
-            ((UserRequest)RequestObject).ClientId = null;
-            RequestUri = MockyApiUris.RequiredClientIdNotGiven;
-        }
+            if (TryExtractFieldFromTable(table, "Company", out fieldValue, true))
+            {
+                RequestObject.UserDetail.Company = fieldValue;
+            }
 
-        [Given(@"it is missing a ProductId")]
-        public void GivenItIsMissingAProductId()
-        {
-            ((UserRequest)RequestObject).ProductId = null;
+            if (TryExtractFieldFromTable(table, "Address1", out fieldValue, true))
+            {
+                RequestObject.UserDetail.Address1 = fieldValue;
+            }
 
-            RequestUri = MockyApiUris.RequiredProductIdNotGiven;
-        }
-
-        [Given(@"it is missing a FormId")]
-        public void GivenItIsMissingAFormId()
-        {
-            ((UserRequest)RequestObject).FormId = null;
-
-            RequestUri = MockyApiUris.RequiredFormIdNotGiven;
-        }
-
-        [Given(@"it has a ClientId that does not exist")]
-        public void GivenItHasAClientIdThatDoesNotExist()
-        {
-            RequestUri = MockyApiUris.InvalidClientIdPassed;
-        }
-
-        [Given(@"it has a ProductId that does not exist")]
-        public void GivenItHasAProductIdThatDoesNotExist()
-        {
-            RequestUri = MockyApiUris.InvalidProductIdPassed;
-        }
-
-        [Given(@"it has a FormId that does not exist")]
-        public void GivenItHasAFormIdThatDoesNotExist()
-        {
-            RequestUri = MockyApiUris.InvalidFormIdPassed;
-        }
-
-        [Given(@"it has an Email Address of (.+)")]
-        public void GivenItHasAnEmailAddressOfNotValidEmail(string emailAddress)
-        {
-            ((UserRequest) RequestObject).EmailAddress = emailAddress;
-            RequestUri = MockyApiUris.InvalidEmailAddressPassed;
+            if (TryExtractFieldFromTable(table, "Address2", out fieldValue, true))
+            {
+                RequestObject.UserDetail.Address2 = fieldValue;
+            }
+            if (TryExtractFieldFromTable(table, "Address3", out fieldValue, true))
+            {
+                RequestObject.UserDetail.Address3 = fieldValue;
+            }
+            if (TryExtractFieldFromTable(table, "Address4", out fieldValue, true))
+            {
+                RequestObject.UserDetail.Address4 = fieldValue;
+            }
+            if (TryExtractFieldFromTable(table, "Address5", out fieldValue, true))
+            {
+                RequestObject.UserDetail.Address5 = fieldValue;
+            }
+            if (TryExtractFieldFromTable(table, "City", out fieldValue, true))
+            {
+                RequestObject.UserDetail.City = fieldValue;
+            }
+            if (TryExtractFieldFromTable(table, "PostCode", out fieldValue, true))
+            {
+                RequestObject.UserDetail.PostCode = fieldValue;
+            }
+            if (TryExtractFieldFromTable(table, "Country", out fieldValue, true))
+            {
+                RequestObject.UserDetail.Country = fieldValue;
+            }
         }
 
         #endregion Given Steps

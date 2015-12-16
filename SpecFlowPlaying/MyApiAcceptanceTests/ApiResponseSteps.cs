@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.RegularExpressions;
 using MyApiAcceptanceTests.Models;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -11,69 +12,47 @@ using TechTalk.SpecFlow;
 
 namespace MyApiAcceptanceTests
 {
-    public abstract class ApiResponseSteps
+   // [Binding]
+    public class ApiResponseSteps<T>
     {
-        protected readonly Uri _httpStatUri = new Uri("http://httpstat.us/");
-        protected readonly Uri _http200Uri = new Uri("http://httpstat.us/200");
-
         private HttpClient _httpClient;
-        protected Uri RequestUri;
+        private Uri _requestUri;
         private HttpResponseMessage _httpResponseMessage;
+        protected T RequestObject;
 
-        protected abstract Object RequestObject { get; set; }
-
-        #region Given Steps
-        [Given(@"a successful request")]
-        public void GivenASuccessfulRequest()
+        [Given(@"an Api request")]
+        public void GivenAnApiRequest()
         {
-            RequestUri = HttpResponseUris.Http200Ok;
+            RequestObject = default(T);
         }
-
-        [Given(@"it creates an item")]
-        public void GivenItCreatesAnItem()
-        {
-            RequestUri = HttpResponseUris.Http201Created;
-        }
-
-        [Given(@"it is performed offline")]
-        public void GivenItIsPerformedOffline()
-        {
-            RequestUri = HttpResponseUris.Http202Accepted;
-        }
-
-        [Given(@"it returns no content")]
-        public void GivenItReturnsNoContent()
-        {
-            RequestUri = HttpResponseUris.Http204NoContent;
-        }
-
-        [Given(@"a request that should not be sent again")]
-        public void GivenARequestThatShouldNotBeSentAgain()
-        {
-            RequestUri = HttpResponseUris.Http400BadRequest;
-        }
-
-        [Given(@"it is badly formed")]
-        public void GivenItIsBadlyFormed()
-        {
-            RequestUri = HttpResponseUris.Http400BadRequest;
-        }
-
-        [Given(@"it has a conflict")]
-        public void GivenItHasAConflict()
-        {
-            RequestUri = HttpResponseUris.Http409Conflict;
-        }
-
-        [Given(@"a request that fails but should be sent again")]
-        public void GivenARequestThatFailsButShouldBeSentAgain()
-        {
-            RequestUri = HttpResponseUris.Http500SystemError;
-        }
-
-        #endregion Given Steps
 
         #region When Steps
+
+        [When(@"I will call the HttpStat Api ""(.*)"" Uri")]
+        public void WhenIWillCallTheHttpStatApiUri(string httpStatApiUri)
+        {
+            // Remove whitespace
+            httpStatApiUri = Regex.Replace(httpStatApiUri, @"\s+", "");
+
+            // Lookup the Field name using Reflection
+            var apiUri = typeof(HttpStatApiUris).GetField(httpStatApiUri).GetValue(null);
+
+            // Assign the Request Uri
+            _requestUri = (Uri)apiUri;
+        }
+
+        [When(@"I will call the Mocky Api ""(.*)"" Uri")]
+        public void WhenIWillCallTheMockyApiUri(string mockyApiUri)
+        {
+            // Remove whitespace
+            mockyApiUri = Regex.Replace(mockyApiUri, @"\s+", "");
+
+            // Lookup the Field name using Reflection
+            var apiUri = typeof(MockyApiUris).GetField(mockyApiUri).GetValue(null);
+
+            // Assign the Request Uri
+            _requestUri = (Uri)apiUri;
+        }
 
         [When(@"I call the Api")]
         public void WhenICallTheApi()
@@ -87,11 +66,15 @@ namespace MyApiAcceptanceTests
                 RequestObject,
                 new JsonSerializerSettings
                 {
-                    NullValueHandling = NullValueHandling.Ignore
+                    Formatting = Formatting.Indented,
+                    NullValueHandling = NullValueHandling.Ignore,
                 });
 
+            Console.WriteLine($"\tSending Request: POST {_requestUri}");
+            Console.WriteLine($"\tSending Request Body:\n\n{requestBody}\n\n");
+
             _httpResponseMessage = _httpClient.PostAsync(
-                RequestUri,
+                _requestUri,
                 new StringContent(requestBody, Encoding.UTF8, "application/json")
                 ).Result;
         }
@@ -113,8 +96,8 @@ namespace MyApiAcceptanceTests
                 Assert.Fail($"Received unexpected response of {(int)actual} ({actual}).");
         }
 
-        [Then(@"it has a response error message of (.+)")]
-        public void ThenItHasAResponseErrorMessageOf(string expectedMessage)
+        [Then(@"the response has an error message of (.+)")]
+        public void ThenTheResponseHasAnErrorMessageOf(string expectedMessage)
         {
             var actual = JsonConvert.DeserializeObject<ErrorMessage>(
                 _httpResponseMessage.Content.ReadAsStringAsync()
@@ -128,6 +111,6 @@ namespace MyApiAcceptanceTests
                 Assert.Fail($"Received unexpected response of '{actual.Message}'.");
         }
 
-        #endregion When Steps
+        #endregion Then Steps
     }
 }

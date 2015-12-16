@@ -88,7 +88,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ApiResponse.feature</DependentUpon>
     </Compile>
-    <Compile Include="HttpResponseUris.cs" />
+    <Compile Include="HttpStatApiUris.cs" />
     <Compile Include="LocalAddin.cs" />
     <Compile Include="MockyApiUris.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
