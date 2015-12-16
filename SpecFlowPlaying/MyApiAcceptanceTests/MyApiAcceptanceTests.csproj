@@ -93,7 +93,10 @@
     <Compile Include="MockyApiUris.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
     <Compile Include="Models\Publication.cs" />
+    <Compile Include="Models\PublicationExtensions.cs" />
+    <Compile Include="Models\UserDetailExtensions.cs" />
     <Compile Include="Models\UserRequest.cs" />
+    <Compile Include="Models\UserRequestExtensions.cs" />
     <Compile Include="MyApiResponse.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

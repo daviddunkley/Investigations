@@ -4,7 +4,7 @@
 //      SpecFlow Version:1.9.0.77
 //      SpecFlow Generator Version:1.9.0.0
 //      Runtime Version:4.0.30319.42000
-// 
+//
 //      Changes to this file may cause incorrect behavior and will be lost if
 //      the code is regenerated.
 //  </auto-generated>
@@ -14,20 +14,20 @@
 namespace MyApiAcceptanceTests
 {
     using TechTalk.SpecFlow;
-    
-    
+
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("MyApiResponse")]
     public partial class MyApiResponseFeature
     {
-        
+
         private static TechTalk.SpecFlow.ITestRunner testRunner;
-        
+
 #line 1 "MyApiResponse.feature"
 #line hidden
-        
+
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
@@ -36,35 +36,35 @@ namespace MyApiAcceptanceTests
                     "\nI want to be told the outcome of the request", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
-        
+
         [NUnit.Framework.TestFixtureTearDownAttribute()]
         public virtual void FeatureTearDown()
         {
             testRunner.OnFeatureEnd();
             testRunner = null;
         }
-        
+
         [NUnit.Framework.SetUpAttribute()]
         public virtual void TestInitialize()
         {
         }
-        
+
         [NUnit.Framework.TearDownAttribute()]
         public virtual void ScenarioTearDown()
         {
             testRunner.OnScenarioEnd();
         }
-        
+
         public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioStart(scenarioInfo);
         }
-        
+
         public virtual void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Valid request for a new User with all fields provided")]
         public virtual void ValidRequestForANewUserWithAllFieldsProvided()
@@ -76,179 +76,71 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
-            table1.AddRow(new string[] {
-                        "ClientId",
-                        "mb"});
-            table1.AddRow(new string[] {
-                        "ProductId",
-                        "37636234-aa8a-4818-b3d0-28840321a05c"});
-            table1.AddRow(new string[] {
-                        "FormId",
-                        "mb_user_import"});
 #line 8
  testRunner.Given("a User Request of:", ((string)(null)), table1, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
-            table2.AddRow(new string[] {
-                        "PublicationId",
-                        "502"});
-            table2.AddRow(new string[] {
-                        "StartDate",
-                        "0001-01-01T00:00:00"});
-            table2.AddRow(new string[] {
-                        "ContentViewed",
-                        "http://local-titanclient-ncu.ci03.global.root/"});
-            table2.AddRow(new string[] {
-                        "AdditionalParameters",
-                        "{\"fid\":\"all\"}"});
-            table2.AddRow(new string[] {
-                        "SendEmail",
-                        "true"});
-#line 13
+#line 10
  testRunner.And("a Publication of:", ((string)(null)), table2, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
-            table3.AddRow(new string[] {
-                        "Title",
-                        "{unique}"});
-            table3.AddRow(new string[] {
-                        "FirstName",
-                        "{unique}"});
-            table3.AddRow(new string[] {
-                        "LastName",
-                        "{unique}"});
-            table3.AddRow(new string[] {
-                        "Company",
-                        "{unique}"});
-            table3.AddRow(new string[] {
-                        "Address1",
-                        "{unique}"});
-            table3.AddRow(new string[] {
-                        "Address2",
-                        "{unique}"});
-            table3.AddRow(new string[] {
-                        "Address3",
-                        "{unique}"});
-            table3.AddRow(new string[] {
-                        "Address4",
-                        "{unique}"});
-            table3.AddRow(new string[] {
-                        "Address5",
-                        "{unique}"});
-            table3.AddRow(new string[] {
-                        "City",
-                        "{unique}"});
-            table3.AddRow(new string[] {
-                        "PostCode",
-                        "{unique}"});
-            table3.AddRow(new string[] {
-                        "Country",
-                        "United Kingdom"});
-#line 20
+#line 12
  testRunner.And("a UserDetails of:", ((string)(null)), table3, "And ");
-#line 34
+#line 14
  testRunner.When("I will call the HttpStat Api \"Created\" Uri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 35
+#line 15
  testRunner.And("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 36
+#line 16
  testRunner.Then("the response has a status code of 201", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Valid request for a new User with minimum fields provided")]
         public virtual void ValidRequestForANewUserWithMinimumFieldsProvided()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Valid request for a new User with minimum fields provided", ((string[])(null)));
-#line 38
+#line 18
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
-            table4.AddRow(new string[] {
-                        "ClientId",
-                        "mb"});
-            table4.AddRow(new string[] {
-                        "ProductId",
-                        "37636234-aa8a-4818-b3d0-28840321a05c"});
-            table4.AddRow(new string[] {
-                        "FormId",
-                        "mb_user_import"});
-#line 39
+#line 19
  testRunner.Given("a User Request of:", ((string)(null)), table4, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
-            table5.AddRow(new string[] {
-                        "PublicationId",
-                        "502"});
-            table5.AddRow(new string[] {
-                        "StartDate",
-                        "0001-01-01T00:00:00"});
-            table5.AddRow(new string[] {
-                        "ContentViewed",
-                        "http://local-titanclient-ncu.ci03.global.root/"});
-            table5.AddRow(new string[] {
-                        "AdditionalParameters",
-                        "{\"fid\":\"all\"}"});
-            table5.AddRow(new string[] {
-                        "SendEmail",
-                        "true"});
-#line 44
+#line 21
  testRunner.And("a Publication of:", ((string)(null)), table5, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
-            table6.AddRow(new string[] {
-                        "Title",
-                        "{unique}"});
-            table6.AddRow(new string[] {
-                        "FirstName",
-                        "{unique}"});
-            table6.AddRow(new string[] {
-                        "LastName",
-                        "{unique}"});
-            table6.AddRow(new string[] {
-                        "Company",
-                        "{unique}"});
-            table6.AddRow(new string[] {
-                        "Address1",
-                        "{unique}"});
-            table6.AddRow(new string[] {
-                        "City",
-                        "{unique}"});
-            table6.AddRow(new string[] {
-                        "PostCode",
-                        "{unique}"});
-            table6.AddRow(new string[] {
-                        "Country",
-                        "United Kingdom"});
-#line 51
+#line 23
  testRunner.And("a UserDetails of:", ((string)(null)), table6, "And ");
-#line 61
+#line 25
  testRunner.When("I will call the HttpStat Api \"Created\" Uri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 62
+#line 26
  testRunner.And("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 63
+#line 27
  testRunner.Then("the response has a status code of 201", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Valid request for existing User with all fields provided")]
         public virtual void ValidRequestForExistingUserWithAllFieldsProvided()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Valid request for existing User with all fields provided", ((string[])(null)));
-#line 65
+#line 29
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
@@ -266,7 +158,7 @@ this.ScenarioSetup(scenarioInfo);
             table7.AddRow(new string[] {
                         "FormId",
                         "mb_user_import"});
-#line 66
+#line 30
  testRunner.Given("a User Request of:", ((string)(null)), table7, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
@@ -277,7 +169,7 @@ this.ScenarioSetup(scenarioInfo);
                         "502"});
             table8.AddRow(new string[] {
                         "StartDate",
-                        "0001-01-01T00:00:00"});
+                        "{now}"});
             table8.AddRow(new string[] {
                         "ContentViewed",
                         "http://local-titanclient-ncu.ci03.global.root/"});
@@ -287,7 +179,7 @@ this.ScenarioSetup(scenarioInfo);
             table8.AddRow(new string[] {
                         "SendEmail",
                         "true"});
-#line 72
+#line 36
  testRunner.And("a Publication of:", ((string)(null)), table8, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
@@ -297,78 +189,53 @@ this.ScenarioSetup(scenarioInfo);
                         "Title",
                         "Mr"});
             table9.AddRow(new string[] {
-                        "FirstName",
-                        "{unique}"});
-            table9.AddRow(new string[] {
-                        "LastName",
-                        "{unique}"});
-            table9.AddRow(new string[] {
-                        "Company",
-                        "{unique}"});
-            table9.AddRow(new string[] {
-                        "Address1",
-                        "{unique}"});
-            table9.AddRow(new string[] {
-                        "Address2",
-                        "{unique}"});
-            table9.AddRow(new string[] {
-                        "Address3",
-                        "{unique}"});
-            table9.AddRow(new string[] {
-                        "Address5",
-                        "{unique}"});
-            table9.AddRow(new string[] {
-                        "City",
-                        "{unique}"});
-            table9.AddRow(new string[] {
-                        "PostCode",
-                        "{unique}"});
-            table9.AddRow(new string[] {
                         "Country",
                         "United Kingdom"});
-#line 79
+#line 43
  testRunner.And("a UserDetails of:", ((string)(null)), table9, "And ");
-#line 92
+#line 47
  testRunner.When("I will call the HttpStat Api \"Ok\" Uri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 93
+#line 48
  testRunner.And("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 94
+#line 49
  testRunner.Then("the response has a status code of 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request made with EmailAddress missing")]
         public virtual void RequestMadeWithEmailAddressMissing()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request made with EmailAddress missing", ((string[])(null)));
-#line 96
+#line 51
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
-#line 97
+#line 52
  testRunner.Given("a User Request of:", ((string)(null)), table10, "Given ");
-#line 99
+#line 54
+ testRunner.And("no EmailAddress passed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 55
  testRunner.When("I will call the Mocky Api \"Required EmailAddress Not Given\" Uri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 100
+#line 56
  testRunner.And("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 101
+#line 57
  testRunner.Then("the response has a status code of 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 102
+#line 58
  testRunner.And("the response has an error message of Required EmailAddress not given", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request made with EmailAddress without domain")]
         public virtual void RequestMadeWithEmailAddressWithoutDomain()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request made with EmailAddress without domain", ((string[])(null)));
-#line 104
+#line 60
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
@@ -377,26 +244,26 @@ this.ScenarioSetup(scenarioInfo);
             table11.AddRow(new string[] {
                         "EmailAddress",
                         "NOT EMAIL ADDRESS"});
-#line 105
+#line 61
  testRunner.Given("a User Request of:", ((string)(null)), table11, "Given ");
-#line 108
+#line 64
  testRunner.When("I will call the Mocky Api \"Invalid EmailAddress Passed\" Uri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 109
+#line 65
  testRunner.And("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 110
+#line 66
  testRunner.Then("the response has a status code of 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 111
+#line 67
  testRunner.And("the response has an error message of Invalid Email Address passed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request made with EmailAddress without suffix")]
         public virtual void RequestMadeWithEmailAddressWithoutSuffix()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request made with EmailAddress without suffix", ((string[])(null)));
-#line 113
+#line 69
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
@@ -405,215 +272,203 @@ this.ScenarioSetup(scenarioInfo);
             table12.AddRow(new string[] {
                         "EmailAddress",
                         "no@suffix"});
-#line 114
+#line 70
  testRunner.Given("a User Request of:", ((string)(null)), table12, "Given ");
-#line 117
+#line 73
  testRunner.When("I will call the Mocky Api \"Invalid EmailAddress Passed\" Uri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 118
+#line 74
  testRunner.And("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 119
+#line 75
  testRunner.Then("the response has a status code of 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 120
+#line 76
  testRunner.And("the response has an error message of Invalid Email Address passed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request made with ClientId missing")]
         public virtual void RequestMadeWithClientIdMissing()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request made with ClientId missing", ((string[])(null)));
-#line 122
+#line 78
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
             table13.AddRow(new string[] {
-                        "EmailAddress",
-                        "{unique}"});
-            table13.AddRow(new string[] {
                         "ProductId",
                         "37636234-aa8a-4818-b3d0-28840321a05c"});
             table13.AddRow(new string[] {
                         "FormId",
                         "FORM ID"});
-#line 123
+#line 79
  testRunner.Given("a User Request of:", ((string)(null)), table13, "Given ");
-#line 128
+#line 83
+ testRunner.And("no ClientId is passed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 84
  testRunner.When("I will call the Mocky Api \"Required Client Id Not Given\" Uri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 129
+#line 85
  testRunner.And("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 130
+#line 86
  testRunner.Then("the response has a status code of 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 131
+#line 87
  testRunner.And("the response has an error message of Required ClientId not given", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request made with ClientId that does not exist")]
         public virtual void RequestMadeWithClientIdThatDoesNotExist()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request made with ClientId that does not exist", ((string[])(null)));
-#line 133
+#line 89
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
             table14.AddRow(new string[] {
-                        "EmailAddress",
-                        "{unique}"});
-            table14.AddRow(new string[] {
                         "ClientId",
                         "NOT VALID CLIENT ID"});
-#line 134
+#line 90
  testRunner.Given("a User Request of:", ((string)(null)), table14, "Given ");
-#line 138
+#line 93
  testRunner.When("I will call the Mocky Api \"Invalid ClientId Passed\" Uri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 139
+#line 94
  testRunner.And("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 140
+#line 95
  testRunner.Then("the response has a status code of 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 141
+#line 96
  testRunner.And("the response has an error message of Invalid ClientId passed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request made with ProductId missing")]
         public virtual void RequestMadeWithProductIdMissing()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request made with ProductId missing", ((string[])(null)));
-#line 143
+#line 98
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
-            table15.AddRow(new string[] {
-                        "EmailAddress",
-                        "{unique}"});
-#line 144
+#line 99
  testRunner.Given("a User Request of:", ((string)(null)), table15, "Given ");
-#line 147
+#line 101
+ testRunner.And("no ProductId is passed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 102
  testRunner.When("I will call the Mocky Api \"Required Product Id Not Given\" Uri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 148
+#line 103
  testRunner.And("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 149
+#line 104
  testRunner.Then("the response has a status code of 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 150
+#line 105
  testRunner.And("the response has an error message of Required ProductId not given", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request made with ProductId that does not exist")]
         public virtual void RequestMadeWithProductIdThatDoesNotExist()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request made with ProductId that does not exist", ((string[])(null)));
-#line 152
+#line 107
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
             table16.AddRow(new string[] {
-                        "EmailAddress",
-                        "{unique}"});
-            table16.AddRow(new string[] {
                         "ProductId",
                         "37636234-aa8a-4818-b3d0-28840321a05c"});
-#line 153
+#line 108
  testRunner.Given("a User Request of:", ((string)(null)), table16, "Given ");
-#line 157
+#line 111
  testRunner.When("I will call the Mocky Api \"Invalid ProductId Passed\" Uri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 158
+#line 112
  testRunner.And("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 159
+#line 113
  testRunner.Then("the response has a status code of 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 160
+#line 114
  testRunner.And("the response has an error message of Invalid ProductId passed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request made with FormId missing")]
         public virtual void RequestMadeWithFormIdMissing()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request made with FormId missing", ((string[])(null)));
-#line 162
+#line 116
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
             table17.AddRow(new string[] {
-                        "EmailAddress",
-                        "{unique}"});
-            table17.AddRow(new string[] {
                         "ProductId",
                         "37636234-aa8a-4818-b3d0-28840321a05c"});
-#line 163
+#line 117
  testRunner.Given("a User Request of:", ((string)(null)), table17, "Given ");
-#line 167
+#line 120
+ testRunner.And("no FormId is passed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 121
  testRunner.When("I will call the Mocky Api \"Required FormId Not Given\" Uri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 168
+#line 122
  testRunner.And("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 169
+#line 123
  testRunner.Then("the response has a status code of 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 170
+#line 124
  testRunner.And("the response has an error message of Required FormId not given", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request made with FormId that does not exist")]
         public virtual void RequestMadeWithFormIdThatDoesNotExist()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request made with FormId that does not exist", ((string[])(null)));
-#line 172
+#line 126
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
                         "Value"});
             table18.AddRow(new string[] {
-                        "EmailAddress",
-                        "{unique}"});
-            table18.AddRow(new string[] {
                         "ProductId",
                         "37636234-aa8a-4818-b3d0-28840321a05c"});
             table18.AddRow(new string[] {
                         "FormId",
                         "NOT VALID FORMID"});
-#line 173
+#line 127
  testRunner.Given("a User Request of:", ((string)(null)), table18, "Given ");
-#line 178
+#line 131
  testRunner.When("I will call the Mocky Api \"Invalid FormId Passed\" Uri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 179
+#line 132
  testRunner.And("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 180
+#line 133
  testRunner.Then("the response has a status code of 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 181
+#line 134
  testRunner.And("the response has an error message of Invalid FormId passed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Request where the User Title is not valid")]
         public virtual void RequestWhereTheUserTitleIsNotValid()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Request where the User Title is not valid", ((string[])(null)));
-#line 183
+#line 136
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
@@ -628,7 +483,7 @@ this.ScenarioSetup(scenarioInfo);
             table19.AddRow(new string[] {
                         "FormId",
                         "mb_user_import"});
-#line 184
+#line 137
  testRunner.Given("a User Request of:", ((string)(null)), table19, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
@@ -649,7 +504,7 @@ this.ScenarioSetup(scenarioInfo);
             table20.AddRow(new string[] {
                         "SendEmail",
                         "true"});
-#line 189
+#line 142
  testRunner.And("a Publication of:", ((string)(null)), table20, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
@@ -659,47 +514,17 @@ this.ScenarioSetup(scenarioInfo);
                         "Title",
                         "Professor"});
             table21.AddRow(new string[] {
-                        "FirstName",
-                        "{unique}"});
-            table21.AddRow(new string[] {
-                        "LastName",
-                        "{unique}"});
-            table21.AddRow(new string[] {
-                        "Company",
-                        "{unique}"});
-            table21.AddRow(new string[] {
-                        "Address1",
-                        "{unique}"});
-            table21.AddRow(new string[] {
-                        "Address2",
-                        "{unique}"});
-            table21.AddRow(new string[] {
-                        "Address3",
-                        "{unique}"});
-            table21.AddRow(new string[] {
-                        "Address4",
-                        "{unique}"});
-            table21.AddRow(new string[] {
-                        "Address5",
-                        "{unique}"});
-            table21.AddRow(new string[] {
-                        "City",
-                        "{unique}"});
-            table21.AddRow(new string[] {
-                        "PostCode",
-                        "{unique}"});
-            table21.AddRow(new string[] {
                         "Country",
                         "United Kingdom"});
-#line 196
+#line 149
  testRunner.And("a UserDetails of:", ((string)(null)), table21, "And ");
-#line 210
+#line 153
  testRunner.When("I will call the Mocky Api \"Invalid Title Passed\" Uri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 211
+#line 154
  testRunner.And("I call the Api", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 212
+#line 155
  testRunner.Then("the response has a status code of 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 213
+#line 156
  testRunner.And("the response has an error message of Invalid Title passed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

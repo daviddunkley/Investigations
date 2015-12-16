@@ -12,7 +12,7 @@ using TechTalk.SpecFlow;
 
 namespace MyApiAcceptanceTests
 {
-   // [Binding]
+    //[Binding]
     public class ApiResponseSteps<T>
     {
         private HttpClient _httpClient;
@@ -70,8 +70,7 @@ namespace MyApiAcceptanceTests
                     NullValueHandling = NullValueHandling.Ignore,
                 });
 
-            Console.WriteLine($"\tSending Request: POST {_requestUri}");
-            Console.WriteLine($"\tSending Request Body:\n\n{requestBody}\n\n");
+            Console.WriteLine($"\tSending Request: POST {_requestUri}\n\n{requestBody}\n\n");
 
             _httpResponseMessage = _httpClient.PostAsync(
                 _requestUri,

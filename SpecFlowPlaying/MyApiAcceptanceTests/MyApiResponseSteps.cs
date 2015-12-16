@@ -8,11 +8,12 @@ using MyApiAcceptanceTests.Models;
 using Newtonsoft.Json;
 using Ploeh.AutoFixture;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 
 namespace MyApiAcceptanceTests
 {
     [Binding]
-    public class MyApiResponseSteps: ApiResponseSteps<UserRequest>
+    public class MyApiResponseSteps : ApiResponseSteps<UserRequest>
     {
         private readonly Fixture _fixture;
         private HttpClient _httpClient;
@@ -23,178 +24,189 @@ namespace MyApiAcceptanceTests
         {
             _fixture = new Fixture();
 
-            RequestObject = new UserRequest
-            {
-                Publication = new Publication(),
-                UserDetail = new UserDetail()
-            };
+            _fixture.Customize<UserRequest>(
+                c => c
+                    .With(u => u.EmailAddress, $"{_fixture.Create<string>()}@{_fixture.Create<string>()}.com")
+                );
+            RequestObject = _fixture.Create<UserRequest>();
         }
 
-        private bool TryExtractEmailFieldFromTable(Table table, string fieldName, out string fieldValue, bool autoGenerate = false)
+        private string ExtractEmailFieldFromTable(Table table, string fieldName, bool autoGenerate = false)
         {
-            fieldValue = null;
-            if (table.Rows.Any(r => r["Field"] == fieldName))
+            if (table.Rows.All(r => r["Field"] != fieldName))
             {
-                fieldValue = table.Rows.First(r => r["Field"] == fieldName)["Value"];
-
-                if (autoGenerate)
-                {
-                    fieldValue = (fieldValue == "{unique}")
-                        ? $"{_fixture.Create<string>()}@{_fixture.Create<string>()}.com"
-                        : fieldValue;
-                }
-                return true;
+                return null;
             }
 
-            return false;
+            var fieldValue = table.Rows.First(r => r["Field"] == fieldName)["Value"];
+
+            if (autoGenerate)
+            {
+                fieldValue = (fieldValue == "{unique}")
+                    ? $"{_fixture.Create<string>()}@{_fixture.Create<string>()}.com"
+                    : fieldValue;
+            }
+            return fieldValue;
         }
 
-        private bool TryExtractFieldFromTable(Table table, string fieldName, out string fieldValue, bool autoGenerate = false)
+        private string ExtractFieldFromTable(Table table, string fieldName, bool autoGenerate = false)
         {
-            fieldValue = null;
-            if (table.Rows.Any(r => r["Field"] == fieldName))
+            if (table.Rows.All(r => r["Field"] != fieldName))
             {
-                fieldValue = table.Rows.First(r => r["Field"] == fieldName)["Value"];
-
-                if (autoGenerate)
-                {
-                    fieldValue = (fieldValue == "{unique}")
-                        ? $"{_fixture.Create<string>()}"
-                        : fieldValue;
-                }
-                return true;
+                return null;
             }
 
-            return false;
+            var fieldValue = table.Rows.First(r => r["Field"] == fieldName)["Value"];
+
+            if (autoGenerate)
+            {
+                fieldValue = (fieldValue == "{unique}")
+                    ? $"{_fixture.Create<string>()}"
+                    : fieldValue;
+            }
+            return fieldValue;
         }
+
+        private Guid? ExtractGuidFieldFromTable(Table table, string fieldName, bool autoGenerate = false)
+        {
+            if (table.Rows.All(r => r["Field"] != fieldName))
+            {
+                return null;
+            }
+
+            var fieldValue = table.Rows.First(r => r["Field"] == fieldName)["Value"];
+
+            if (autoGenerate)
+            {
+                if (fieldValue == "{unique}")
+                {
+                    return Guid.NewGuid();
+                }
+            }
+
+            Guid guid;
+            if (Guid.TryParse(fieldValue, out guid))
+            {
+                return guid;
+            }
+
+            return null;
+        }
+
+        private bool? ExtractBoolFieldFromTable(Table table, string fieldName)
+        {
+            if (table.Rows.All(r => r["Field"] != fieldName))
+            {
+                return null;
+            }
+
+            var fieldValue = table.Rows.First(r => r["Field"] == fieldName)["Value"];
+
+            bool yesNo;
+            if (bool.TryParse(fieldValue, out yesNo))
+            {
+                return yesNo;
+            }
+
+            return null;
+        }
+
+        private int? ExtractIntFieldFromTable(Table table, string fieldName, bool autoGenerate = false)
+        {
+            if (table.Rows.All(r => r["Field"] != fieldName))
+            {
+                return null;
+            }
+
+            var fieldValue = table.Rows.First(r => r["Field"] == fieldName)["Value"];
+
+            if (autoGenerate)
+            {
+                fieldValue = (fieldValue == "{unique}")
+                    ? $"{_fixture.Create<int>()}"
+                    : fieldValue;
+            }
+
+            int id;
+            if (int.TryParse(fieldValue, out id))
+            {
+                return id;
+            }
+
+            return null;
+        }
+
+        private DateTime? ExtractDateTimeFieldFromTable(Table table, string fieldName, bool autoGenerate = false)
+        {
+            if (table.Rows.All(r => r["Field"] != fieldName))
+            {
+                return null;
+            }
+
+            var fieldValue = table.Rows.First(r => r["Field"] == fieldName)["Value"];
+
+            DateTime dateTime;
+
+            if (autoGenerate)
+            {
+                if (fieldValue == "{today}")
+                {
+                    return DateTime.Today;
+                }
+                if (fieldValue == "{now}")
+                {
+                    return DateTime.UtcNow;
+                }
+            }
+            if (!DateTime.TryParse(fieldValue, out dateTime))
+            {
+                return null;
+            }
+            return dateTime;
+        }
+
 
         #region Given Steps
         [Given(@"a User Request of:")]
         public void GivenAUserRequestOf(Table table)
         {
-            string fieldValue;
-
-            if (TryExtractEmailFieldFromTable(table, "EmailAddress", out fieldValue, true))
-            {
-                RequestObject.EmailAddress = fieldValue;
-            }
-
-            if (TryExtractFieldFromTable(table, "ClientId", out fieldValue))
-            {
-                RequestObject.ClientId = fieldValue;
-            }
-
-            if (TryExtractFieldFromTable(table, "ProductId", out fieldValue))
-            {
-                Guid guid;
-                if (Guid.TryParse(fieldValue, out guid))
-                {
-                    RequestObject.ProductId = guid;
-                }
-            }
-
-            if (TryExtractFieldFromTable(table, "FormId", out fieldValue))
-            {
-                RequestObject.FormId = fieldValue;
-            }
+            RequestObject.Merge(table.CreateInstance<UserRequest>());
         }
 
         [Given(@"a Publication of:")]
         public void GivenAPublicationOf(Table table)
         {
-            string fieldValue;
-
-            if (TryExtractFieldFromTable(table, "AdditionalParameters", out fieldValue))
-            {
-                RequestObject.Publication.AdditionalParameters = fieldValue;
-            }
-
-            if (TryExtractFieldFromTable(table, "PublicationId", out fieldValue))
-            {
-                int id;
-                if (int.TryParse(fieldValue, out id))
-                {
-                    RequestObject.Publication.PublicationId = id;
-                }
-            }
-
-            if (TryExtractFieldFromTable(table, "StartDate", out fieldValue))
-            {
-                DateTime dt;
-                if (DateTime.TryParse(fieldValue, out dt))
-                {
-                    RequestObject.Publication.StartDate = dt;
-                }
-            }
-
-            if (TryExtractFieldFromTable(table, "SendEmail", out fieldValue))
-            {
-                bool yesNo;
-                if (bool.TryParse(fieldValue, out yesNo))
-                {
-                    RequestObject.Publication.SendEmail = yesNo;
-                }
-            }
+            RequestObject.Publication.Merge(table.CreateInstance<Publication>());
         }
 
         [Given(@"a UserDetails of:")]
         public void GivenAUserDetailsOf(Table table)
         {
-            string fieldValue;
+            RequestObject.UserDetail.Merge(table.CreateInstance<UserDetail>());
+        }
 
-            if (TryExtractFieldFromTable(table, "Title", out fieldValue, true))
-            {
-                RequestObject.UserDetail.Title = fieldValue;
-            }
+        [Given(@"no EmailAddress passed")]
+        public void GivenNoEmailAddressPassed()
+        {
+            RequestObject.EmailAddress = null;
+        }
 
-            if (TryExtractFieldFromTable(table, "FirstName", out fieldValue, true))
-            {
-                RequestObject.UserDetail.FirstName = fieldValue;
-            }
+        [Given(@"no ClientId is passed")]
+        public void GivenNoClientIdIsPassed()
+        {
+            RequestObject.ClientId = null;
+        }
 
-            if (TryExtractFieldFromTable(table, "LastName", out fieldValue, true))
-            {
-                RequestObject.UserDetail.LastName = fieldValue;
-            }
+        [Given(@"no ProductId is passed")]
+        public void GivenNoProductIdIsPassed()
+        {
+            RequestObject.ProductId = null;
+        }
 
-            if (TryExtractFieldFromTable(table, "Company", out fieldValue, true))
-            {
-                RequestObject.UserDetail.Company = fieldValue;
-            }
-
-            if (TryExtractFieldFromTable(table, "Address1", out fieldValue, true))
-            {
-                RequestObject.UserDetail.Address1 = fieldValue;
-            }
-
-            if (TryExtractFieldFromTable(table, "Address2", out fieldValue, true))
-            {
-                RequestObject.UserDetail.Address2 = fieldValue;
-            }
-            if (TryExtractFieldFromTable(table, "Address3", out fieldValue, true))
-            {
-                RequestObject.UserDetail.Address3 = fieldValue;
-            }
-            if (TryExtractFieldFromTable(table, "Address4", out fieldValue, true))
-            {
-                RequestObject.UserDetail.Address4 = fieldValue;
-            }
-            if (TryExtractFieldFromTable(table, "Address5", out fieldValue, true))
-            {
-                RequestObject.UserDetail.Address5 = fieldValue;
-            }
-            if (TryExtractFieldFromTable(table, "City", out fieldValue, true))
-            {
-                RequestObject.UserDetail.City = fieldValue;
-            }
-            if (TryExtractFieldFromTable(table, "PostCode", out fieldValue, true))
-            {
-                RequestObject.UserDetail.PostCode = fieldValue;
-            }
-            if (TryExtractFieldFromTable(table, "Country", out fieldValue, true))
-            {
-                RequestObject.UserDetail.Country = fieldValue;
-            }
+        [Given(@"no FormId is passed")]
+        public void GivenNoFormIdIsPassed()
+        {
+            RequestObject.FormId = null;
         }
 
         #endregion Given Steps
