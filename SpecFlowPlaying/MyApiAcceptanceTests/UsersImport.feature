@@ -11,6 +11,12 @@ Scenario: Invalid ClientId
 	When I make the Api User Import request
 	Then that request needs to return a 500 - Internal Servce Error Response
 
+Scenario: Invalid FormId
+	Given a default UserImport request
+	And I set the FormId to be "INVALID"
+	When I make the Api User Import request
+	Then that request needs to return a 500 - Internal Servce Error Response
+
 Scenario: Invalid ProductId for valid ClientId
 	Given a default UserImport request
 	And I set the ClientId to be "hfi"
@@ -20,8 +26,6 @@ Scenario: Invalid ProductId for valid ClientId
 
 Scenario: New User with Full Details
 	Given a default UserImport request
-	And I set the ClientId to be "hfi"
-	And I set the ProductId to be "fce849c5-ce89-4c89-aa38-0bc37db3709a"
 	When I make the Api User Import request
 	Then that request needs to return a 201 - Created Response
 	And the response needs to have a VerifyUrl Path of "/User/Verify"

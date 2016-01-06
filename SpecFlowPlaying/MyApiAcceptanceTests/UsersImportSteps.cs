@@ -22,7 +22,6 @@ namespace MyApiAcceptanceTests
     public class UsersImportSteps
     {
         private readonly Fixture _fixture;
-        private UserImportRequest _userImportRequest;
         private HttpClient _httpClient;
         private HttpResponseMessage _httpResponseMessage;
 
@@ -36,6 +35,7 @@ namespace MyApiAcceptanceTests
         {
             FeatureContext.Current.Add("ApiDomain", new Uri("http://local-identitymanagement.ci03.global.root"));
             FeatureContext.Current.Add("DefaultClientId", "sandbox-ncu");
+            FeatureContext.Current.Add("DefaultFormId", "fft");
             FeatureContext.Current.Add("DefaultProductId", new Guid("ed75561a-b35d-4846-88e3-6287228bc9bc"));
 
             var defaultUserDetails = new Dictionary<string, string>
@@ -60,7 +60,7 @@ namespace MyApiAcceptanceTests
         [Given(@"an empty UserImport request")]
         public void GivenAnEmptyUserImportRequest()
         {
-            _userImportRequest = new UserImportRequest();
+            ScenarioContext.Current.Add("UserImportRequest", new UserImportRequest());
         }
 
         [Given(@"a default UserImport request")]
@@ -71,10 +71,11 @@ namespace MyApiAcceptanceTests
                     .With(u => u.EmailAddress, $"{_fixture.Create<string>()}@{_fixture.Create<string>()}.com")
                     .With(u => u.ClientId, FeatureContext.Current.Get<string>("DefaultClientId"))
                     .With(u => u.ProductId, FeatureContext.Current.Get<Guid>("DefaultProductId"))
+                    .With(u => u.FormId, FeatureContext.Current.Get<string>("DefaultFormId"))
                     .With(u => u.Details, FeatureContext.Current.Get<Dictionary<string,string>>("DefaultUserDetails"))
                 );
 
-            _userImportRequest = _fixture.Create<UserImportRequest>();
+            ScenarioContext.Current.Add("UserImportRequest", _fixture.Create<UserImportRequest>());
         }
 
         [Given(@"the UserDetails of:")]
@@ -82,28 +83,41 @@ namespace MyApiAcceptanceTests
         {
             var userDetails = table.Rows.ToDictionary(row => row[0], row => row[1]);
 
-            _userImportRequest.Details = userDetails;
+            var userImportRequest = ScenarioContext.Current.Get<UserImportRequest>("UserImportRequest");
+            userImportRequest.Details = userDetails;
         }
 
         [Given(@"I set the ClientId to be ""(.*)""")]
         public void GivenISetTheClientIdToBe(string clientId)
         {
-            _userImportRequest.ClientId = clientId;
+            var userImportRequest = ScenarioContext.Current.Get<UserImportRequest>("UserImportRequest");
+            userImportRequest.ClientId = clientId;
         }
+
+        [Given(@"I set the FormId to be ""(.*)""")]
+        public void GivenISetTheFormIdToBe(string formId)
+        {
+            var userImportRequest = ScenarioContext.Current.Get<UserImportRequest>("UserImportRequest");
+            userImportRequest.FormId = formId;
+        }
+
 
         [Given(@"I set the ProductId to be ""(.*)""")]
         public void GivenISetTheProductIdToBe(Guid productId)
         {
-            _userImportRequest.ProductId = productId;
+            var userImportRequest = ScenarioContext.Current.Get<UserImportRequest>("UserImportRequest");
+            userImportRequest.ProductId = productId;
         }
 
         [Given(@"I have made the Api User Import request(.*)")]
         public void GivenIHaveMadeTheApiUserImportRequest(string p0)
         {
+            var userImportRequest = ScenarioContext.Current.Get<UserImportRequest>("UserImportRequest");
+
             var httpResponseMessage = SendApiRequest(
                 new Uri(FeatureContext.Current.Get<Uri>("ApiDomain"), TitanApiEndpoints.UsersImport),
-                _userImportRequest.ClientId,
-                _userImportRequest);
+                userImportRequest.ClientId,
+                userImportRequest);
 
             if (!httpResponseMessage.IsSuccessStatusCode)
             {
@@ -114,10 +128,12 @@ namespace MyApiAcceptanceTests
         [When(@"I make the Api User Import request(.*)")]
         public void WhenIMakeTheApiUserImportRequest(string p0)
         {
+            var userImportRequest = ScenarioContext.Current.Get<UserImportRequest>("UserImportRequest");
+
             _httpResponseMessage = SendApiRequest(
                 new Uri(FeatureContext.Current.Get<Uri>("ApiDomain"), TitanApiEndpoints.UsersImport),
-                _userImportRequest.ClientId,
-                _userImportRequest);
+                userImportRequest.ClientId,
+                userImportRequest);
         }
 
         [Then(@"that request needs to return a (\d{3}) - (.*) Response")]
