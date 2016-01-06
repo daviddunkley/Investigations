@@ -192,3 +192,6 @@ FakesAssemblies/
 /src/Euromoney.IdentityManagement/log.txt
 /src/Euromoney.IdentityManagement/log.txt*
 /samples/Euromoney.IdentityManagement.Samples.Npas/Logs
+
+# SpecFlow Files
+*.feature.cs

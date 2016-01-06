@@ -112,12 +112,13 @@
     <Compile Include="Models\UserDetail.cs" />
     <Compile Include="MyApiResponseSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UsersNoAuthApi.feature.cs">
+    <Compile Include="TitanApiEndpoints.cs" />
+    <Compile Include="UsersImport.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>UsersNoAuthApi.feature</DependentUpon>
+      <DependentUpon>UsersImport.feature</DependentUpon>
     </Compile>
-    <Compile Include="UsersNoAuthApiSteps.cs" />
+    <Compile Include="UsersImportSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ApiResponse.feature">
@@ -130,9 +131,9 @@
     </None>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="UsersNoAuthApi.feature">
+    <None Include="UsersImport.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>UsersNoAuthApi.feature.cs</LastGenOutput>
+      <LastGenOutput>UsersImport.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <Choose>
