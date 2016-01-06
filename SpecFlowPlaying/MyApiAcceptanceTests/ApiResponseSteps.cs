@@ -89,7 +89,7 @@ namespace MyApiAcceptanceTests
 
             if (expected == actual)
             {
-                Debug.Print($"Received expected response of {(int)expected} ({expected}).");
+                Console.WriteLine($"\tReceived expected response of {(int)expected} ({expected}).");
             }
             else
                 Assert.Fail($"Received unexpected response of {(int)actual} ({actual}).");
